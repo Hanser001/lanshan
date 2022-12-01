@@ -6,6 +6,5 @@
 
 数据库操作选用了原生sql
 
-![image-20221201230349767](C:\Users\24532\AppData\Roaming\Typora\typora-user-images\image-20221201230349767.png)
 
-![image-20221201230449842](C:\Users\24532\AppData\Roaming\Typora\typora-user-images\image-20221201230449842.png)
+
