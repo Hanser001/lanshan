@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./user";
+
+message registerReq {
+  string username = 1;
+  string password = 2;
+}
+
+message registerRes {
+  int32 code = 1;
+  string msg = 2;
+}
+
+message loginReq {
+  string username = 1;
+  string password = 2;
+}
+
+message loginRes {
+  int32 code = 1;
+  string msg = 2;
+}
+
+service Sys {
+  rpc register(registerReq) returns (registerRes);
+  rpc login(loginReq) returns (loginRes);
+}
