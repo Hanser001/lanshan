@@ -37,6 +37,17 @@ func (l *RegisterLogic) Register(in *user.RegisterReq) (*user.RegisterRes, error
 		}, errors.New("user has been existed")
 
 	case model.ErrNotFound:
+		NewUser := model.User{
+			Username: in.Username,
+			Password: in.Password,
+		}
+
+		_, err = l.svcCtx.UserModel.Insert(l.ctx, &NewUser)
+
+		if err != nil {
+			return nil, err
+		}
+
 		return &user.RegisterRes{
 			Code: 0,
 			Msg:  "register successfully",
