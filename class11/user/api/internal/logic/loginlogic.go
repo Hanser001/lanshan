@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"errors"
-	"lanshan/class11/user/model"
+	"lanshan/class11/user/rpc/pb/user"
 	"strings"
 
 	"lanshan/class11/user/api/internal/svc"
@@ -31,21 +31,17 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginRes, err error
 		return nil, errors.New("username or password can not be null")
 	}
 
-	userInfo, err := l.svcCtx.UserModel.FindOneByUsername(l.ctx, req.Username)
-	switch err {
-	case nil:
-	case model.ErrNotFound:
-		return nil, errors.New("用户名不存在")
-	default:
-		return nil, err
-	}
+	_, err = l.svcCtx.SysRpcClient.Login(l.ctx, &user.LoginReq{
+		Username: req.Username,
+		Password: req.Password,
+	})
 
-	if userInfo.Password != req.Password {
-		return nil, errors.New("用户密码不正确")
+	if err != nil {
+		return nil, err
 	}
 
 	return &types.LoginRes{
 		Code: 0,
-		Msg:  "login successful",
+		Msg:  "ok",
 	}, nil
 }

@@ -3,10 +3,9 @@ package logic
 import (
 	"context"
 	"errors"
-	"lanshan/class11/user/model"
-
 	"lanshan/class11/user/api/internal/svc"
 	"lanshan/class11/user/api/internal/types"
+	"lanshan/class11/user/rpc/pb/user"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -33,29 +32,17 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterRe
 		}, errors.New("username or password can not be null")
 	}
 
-	_, err = l.svcCtx.UserModel.FindOneByUsername(l.ctx, req.Username)
-	switch err {
-	case nil:
-		return &types.RegisterRes{
-			Code: 400,
-			Msg:  "user has been existed",
-		}, errors.New("user has been existed")
+	_, err = l.svcCtx.SysRpcClient.Register(l.ctx, &user.RegisterReq{
+		Username: req.Username,
+		Password: req.Password,
+	})
 
-	case model.ErrNotFound:
-		newUser := model.User{
-			Username: req.Username,
-			Password: req.Password,
-		}
-		l.svcCtx.UserModel.Insert(l.ctx, &newUser)
-		return &types.RegisterRes{
-			Code: 0,
-			Msg:  "register successfully",
-		}, nil
-
-	default:
-		return &types.RegisterRes{
-			Code: 400,
-			Msg:  "unknown error",
-		}, errors.New("unknown error")
+	if err != nil {
+		return nil, err
 	}
+
+	return &types.RegisterRes{
+		Code: 0,
+		Msg:  "ok",
+	}, nil
 }
