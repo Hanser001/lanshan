@@ -52,11 +52,11 @@ func (l *RegisterLogic) Register(in *user.RegisterReq) (*user.RegisterRes, error
 			Code: 0,
 			Msg:  "register successfully",
 		}, nil
-	default:
 
+	default:
 		return &user.RegisterRes{
 			Code: 400,
-			Msg:  "unknown err",
-		}, errors.New("unknown err")
+			Msg:  "back error",
+		}, errors.New("database error")
 	}
 }
