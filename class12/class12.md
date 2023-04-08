@@ -18,6 +18,10 @@
 
 ##### api方配置
 
+在api服务的配置文件api/etc 添加consul配置
+
+![image-20230408162152409](https://typora-1314425967.cos.ap-nanjing.myqcloud.com/typora/image-20230408162152409.png)
+
 在api服务的配置文件api/internal/config 添加zrpc.RpcClientConf配置
 
 ![image-20230408151830355](https://typora-1314425967.cos.ap-nanjing.myqcloud.com/typora/image-20230408151830355.png)
