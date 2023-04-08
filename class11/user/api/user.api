@@ -28,7 +28,7 @@ type (
 	prefix: api
 )
 
-service user-api {
+service user {
 	@handler register
 	post /user/register (registerReq) returns (registerRes)
 	
