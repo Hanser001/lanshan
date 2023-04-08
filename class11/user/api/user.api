@@ -28,7 +28,7 @@ type (
 	prefix: api
 )
 
-service template {
+service user-api {
 	@handler register
 	post /user/register (registerReq) returns (registerRes)
 	

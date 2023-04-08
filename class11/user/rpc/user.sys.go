@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/zeromicro/zero-contrib/zrpc/registry/consul"
 
 	"lanshan/class11/user/rpc/internal/config"
 	"lanshan/class11/user/rpc/internal/server"
@@ -16,7 +17,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-var configFile = flag.String("f", "etc/user.sys.yaml", "the config file")
+var configFile = flag.String("f", "class11/user/rpc/etc/user.sys.yaml", "the config file")
 
 func main() {
 	flag.Parse()
@@ -33,6 +34,13 @@ func main() {
 		}
 	})
 	defer s.Stop()
+
+	//将consul注册到rpc
+	err := consul.RegisterService(c.ListenOn, c.Consul)
+	if err != nil {
+		fmt.Println("consul error")
+		return
+	}
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()

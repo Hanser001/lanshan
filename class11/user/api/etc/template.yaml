@@ -1,9 +1,0 @@
-Name: template
-Host: 0.0.0.0
-Port: 8888
-Mysql:
-  DataSource: "username:password@tcp(ip:port)/dbname?charset=utf8mb4&parseTine=True&loc=Local"
-CacheRedis:
-  - Host: $host
-    Pass: $pass
-    Type: node
