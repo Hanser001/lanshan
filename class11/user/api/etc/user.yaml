@@ -2,7 +2,7 @@ Name: user-api
 Host: 0.0.0.0
 Port: 8888
 SysRpcClientConf:
-  Target: consul://0.0.0.0:8500/user.rpc?wait=14s
+  Target: consul://0.0.0.0:8500/user.sys.rpc?wait=14s
 Consul:
   Host: 0.0.0.0:8500
   Key: user.sys.rpc
